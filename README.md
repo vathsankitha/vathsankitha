@@ -1,5 +1,4 @@
-(README_zh_cn.md)
-(README_ja_jp.md)
+DEMO
 
 <p align="center"> 
   <img src="./assets/images/teaser.jpg">

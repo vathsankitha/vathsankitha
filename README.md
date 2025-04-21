@@ -1,7 +1,8 @@
-DEMO
+[中文阅读](README_zh_cn.md)
+[日本語で読む](README_ja_jp.md)
 
 <p align="center"> 
-  <img src="https://github.com/vathsankitha/vathsankitha/blob/master/image.jpg?raw=true"">
+  <img src="./assets/images/teaser.jpg">
 
 </p>
 
@@ -277,14 +278,3 @@ exploration.
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Tencent/Hunyuan3D-2&type=Date" />
  </picture>
 </a>
-
-
-
-
-
-
-
-
-
-
-

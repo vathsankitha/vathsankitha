@@ -32,112 +32,14 @@ DEMO
 “ Living out everyone’s imagination on creating and manipulating 3D assets.”
 </p>
 
-## 🔥 News
 
-- Feb 14, 2025: 🛠️ Release texture enhancement module, please obtain high-definition textures via [here](minimal_demo.py)!
-- Feb 3, 2025: 🐎
-  Release [Hunyuan3D-DiT-v2-0-Fast](https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-dit-v2-0-fast), our
-  guidance distillation model that could half the dit inference time, see [here](minimal_demo.py) for usage.
-- Jan 27, 2025: 🛠️ Release Blender addon for Hunyuan3D 2.0, Check it out [here](#blender-addon).
-- Jan 23, 2025: 💬 We thank community members for
-  creating [Windows installation tool](https://github.com/YanWenKun/Hunyuan3D-2-WinPortable), ComfyUI support
-  with [ComfyUI-Hunyuan3DWrapper](https://github.com/kijai/ComfyUI-Hunyuan3DWrapper)
-  and [ComfyUI-3D-Pack](https://github.com/MrForExample/ComfyUI-3D-Pack) and other
-  awesome [extensions](#community-resources).
-- Jan 21, 2025: 💬 Enjoy exciting 3D generation on our website [Hunyuan3D Studio](https://3d.hunyuan.tencent.com)!
-- Jan 21, 2025: 🤗 Release inference code and pretrained models
-  of [Hunyuan3D 2.0](https://huggingface.co/tencent/Hunyuan3D-2). Please give it a try
-  via [huggingface space](https://huggingface.co/spaces/tencent/Hunyuan3D-2) and
-  our [official site](https://3d.hunyuan.tencent.com)!
-
-## **Abstract**
-
-We present Hunyuan3D 2.0, an advanced large-scale 3D synthesis system for generating high-resolution textured 3D assets.
-This system includes two foundation components: a large-scale shape generation model - Hunyuan3D-DiT, and a large-scale
-texture synthesis model - Hunyuan3D-Paint.
-The shape generative model, built on a scalable flow-based diffusion transformer, aims to create geometry that properly
-aligns with a given condition image, laying a solid foundation for downstream applications.
-The texture synthesis model, benefiting from strong geometric and diffusion priors, produces high-resolution and vibrant
-texture maps for either generated or hand-crafted meshes.
-Furthermore, we build Hunyuan3D-Studio - a versatile, user-friendly production platform that simplifies the re-creation
-process of 3D assets. It allows both professional and amateur users to manipulate or even animate their meshes
-efficiently.
-We systematically evaluate our models, showing that Hunyuan3D 2.0 outperforms previous state-of-the-art models,
-including the open-source models and closed-source models in geometry details, condition alignment, texture quality, and
-e.t.c.
+  
 
 
 
-<p align="center">
-  <img src="assets/images/system.jpg">
-</p>
 
-## ☯️ **Hunyuan3D 2.0**
 
-### Architecture
 
-Hunyuan3D 2.0 features a two-stage generation pipeline, starting with the creation of a bare mesh, followed by the
-synthesis of a texture map for that mesh. This strategy is effective for decoupling the difficulties of shape and
-texture generation and also provides flexibility for texturing either generated or handcrafted meshes.
-
-<p align="left">
-  <img src="assets/images/arch.jpg">
-</p>
-
-### Performance
-
-We have evaluated Hunyuan3D 2.0 with other open-source as well as close-source 3d-generation methods.
-The numerical results indicate that Hunyuan3D 2.0 surpasses all baselines in the quality of generated textured 3D assets
-and the condition following ability.
-
-| Model                   | CMMD(⬇)   | FID_CLIP(⬇) | FID(⬇)      | CLIP-score(⬆) |
-|-------------------------|-----------|-------------|-------------|---------------|
-| Top Open-source Model1  | 3.591     | 54.639      | 289.287     | 0.787         |
-| Top Close-source Model1 | 3.600     | 55.866      | 305.922     | 0.779         |
-| Top Close-source Model2 | 3.368     | 49.744      | 294.628     | 0.806         |
-| Top Close-source Model3 | 3.218     | 51.574      | 295.691     | 0.799         |
-| Hunyuan3D 2.0           | **3.193** | **49.165**  | **282.429** | **0.809**     |
-
-Generation results of Hunyuan3D 2.0:
-<p align="left">
-  <img src="assets/images/e2e-1.gif"  height=250>
-  <img src="assets/images/e2e-2.gif"  height=250>
-</p>
-
-## 🎁 Models Zoo
-
-It takes 11.5 GB VRAM for shape generation and 24.5 GB for shape and texture generation in total.
-
-| Model                   |    Description                         | Date       | Size | Huggingface                                                                              |
-|-------------------------|-----------------------------|------------|------|------------------------------------------------------------------------------------------| 
-| Hunyuan3D-DiT-v2-0-Fast | Guidance Distillation Model | 2025-02-03 | 2.6B | [Download](https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-dit-v2-0-fast) |
-| Hunyuan3D-DiT-v2-0      | Image to Shape Model        | 2025-01-21 | 2.6B | [Download](https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-dit-v2-0)      |
-| Hunyuan3D-Paint-v2-0    | Texture Generation Model    | 2025-01-21 | 1.3B | [Download](https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-paint-v2-0)    |
-| Hunyuan3D-Delight-v2-0  | Image Delight Model         | 2025-01-21 | 1.3B | [Download](https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-delight-v2-0)  | 
-
-## 🤗 Get Started with Hunyuan3D 2.0
-
-You may follow the next steps to use Hunyuan3D 2.0 via:
-
-- [Code](#code-usage)
-- [Gradio App](#gradio-app)
-- [API Server](#api-server)
-- [Blender Addon](#blender-addon)
-- [Official Site](#official-site)
-
-### Install Requirements
-
-Please install Pytorch via the [official](https://pytorch.org/) site. Then install the other requirements via
-
-```bash
-pip install -r requirements.txt
-# for texture
-cd hy3dgen/texgen/custom_rasterizer
-python3 setup.py install
-cd ../../..
-cd hy3dgen/texgen/differentiable_renderer
-python3 setup.py install
-```
 
 ### Code Usage
 

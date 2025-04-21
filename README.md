@@ -1,7 +1,7 @@
 DEMO
 
 <p align="center"> 
-  <img src="./assets/images/teaser.jpg">
+  <img src="https://github.com/vathsankitha/vathsankitha/blob/master/image.jpg?raw=true"">
 
 </p>
 

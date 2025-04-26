@@ -25,51 +25,12 @@ hello
 <br>
 
 
-> Join our **[Wechat](#)** and **[Discord](https://discord.gg/dNBrdrGGMa)** group to discuss and find help from us.
 
-| Wechat Group                                     | Xiaohongshu                                           | X                                           | Discord                                           |
-|--------------------------------------------------|-------------------------------------------------------|---------------------------------------------|---------------------------------------------------|
-| <img src="assets/qrcode/wechat.png"  height=140> | <img src="assets/qrcode/xiaohongshu.png"  height=140> | <img src="assets/qrcode/x.png"  height=140> | <img src="assets/qrcode/discord.png"  height=140> |        
 
 ---
 
-<p align="center">
-“ Living out everyone’s imagination on creating and manipulating 3D assets.”
-</p>
 
-## 🔥 News
 
-- Feb 14, 2025: 🛠️ Release texture enhancement module, please obtain high-definition textures via [here](minimal_demo.py)!
-- Feb 3, 2025: 🐎
-  Release [Hunyuan3D-DiT-v2-0-Fast](https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-dit-v2-0-fast), our
-  guidance distillation model that could half the dit inference time, see [here](minimal_demo.py) for usage.
-- Jan 27, 2025: 🛠️ Release Blender addon for Hunyuan3D 2.0, Check it out [here](#blender-addon).
-- Jan 23, 2025: 💬 We thank community members for
-  creating [Windows installation tool](https://github.com/YanWenKun/Hunyuan3D-2-WinPortable), ComfyUI support
-  with [ComfyUI-Hunyuan3DWrapper](https://github.com/kijai/ComfyUI-Hunyuan3DWrapper)
-  and [ComfyUI-3D-Pack](https://github.com/MrForExample/ComfyUI-3D-Pack) and other
-  awesome [extensions](#community-resources).
-- Jan 21, 2025: 💬 Enjoy exciting 3D generation on our website [Hunyuan3D Studio](https://3d.hunyuan.tencent.com)!
-- Jan 21, 2025: 🤗 Release inference code and pretrained models
-  of [Hunyuan3D 2.0](https://huggingface.co/tencent/Hunyuan3D-2). Please give it a try
-  via [huggingface space](https://huggingface.co/spaces/tencent/Hunyuan3D-2) and
-  our [official site](https://3d.hunyuan.tencent.com)!
-
-## **Abstract**
-
-We present Hunyuan3D 2.0, an advanced large-scale 3D synthesis system for generating high-resolution textured 3D assets.
-This system includes two foundation components: a large-scale shape generation model - Hunyuan3D-DiT, and a large-scale
-texture synthesis model - Hunyuan3D-Paint.
-The shape generative model, built on a scalable flow-based diffusion transformer, aims to create geometry that properly
-aligns with a given condition image, laying a solid foundation for downstream applications.
-The texture synthesis model, benefiting from strong geometric and diffusion priors, produces high-resolution and vibrant
-texture maps for either generated or hand-crafted meshes.
-Furthermore, we build Hunyuan3D-Studio - a versatile, user-friendly production platform that simplifies the re-creation
-process of 3D assets. It allows both professional and amateur users to manipulate or even animate their meshes
-efficiently.
-We systematically evaluate our models, showing that Hunyuan3D 2.0 outperforms previous state-of-the-art models,
-including the open-source models and closed-source models in geometry details, condition alignment, texture quality, and
-e.t.c.
 
 
 
@@ -77,13 +38,7 @@ e.t.c.
   <img src="assets/images/system.jpg">
 </p>
 
-## ☯️ **Hunyuan3D 2.0**
 
-### Architecture
-
-Hunyuan3D 2.0 features a two-stage generation pipeline, starting with the creation of a bare mesh, followed by the
-synthesis of a texture map for that mesh. This strategy is effective for decoupling the difficulties of shape and
-texture generation and also provides flexibility for texturing either generated or handcrafted meshes.
 
 <p align="left">
   <img src="assets/images/arch.jpg">

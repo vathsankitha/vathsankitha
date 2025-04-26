@@ -1,7 +1,7 @@
 hello
 
 <p align="center"> 
-  <img src="[(https://github.com/vathsankitha/vathsankitha/blob/master/image.jpg?raw=true)]">
+  <img src="C:\Users\Vathsankitha\OneDrive\Desktop\ipd\dog.jpg">
 
 </p>
 

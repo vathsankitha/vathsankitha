@@ -44,130 +44,17 @@ hello
   <img src="assets/images/arch.jpg">
 </p>
 
-### Performance
 
-We have evaluated Hunyuan3D 2.0 with other open-source as well as close-source 3d-generation methods.
-The numerical results indicate that Hunyuan3D 2.0 surpasses all baselines in the quality of generated textured 3D assets
-and the condition following ability.
 
-| Model                   | CMMD(⬇)   | FID_CLIP(⬇) | FID(⬇)      | CLIP-score(⬆) |
-|-------------------------|-----------|-------------|-------------|---------------|
-| Top Open-source Model1  | 3.591     | 54.639      | 289.287     | 0.787         |
-| Top Close-source Model1 | 3.600     | 55.866      | 305.922     | 0.779         |
-| Top Close-source Model2 | 3.368     | 49.744      | 294.628     | 0.806         |
-| Top Close-source Model3 | 3.218     | 51.574      | 295.691     | 0.799         |
-| Hunyuan3D 2.0           | **3.193** | **49.165**  | **282.429** | **0.809**     |
 
-Generation results of Hunyuan3D 2.0:
-<p align="left">
-  <img src="assets/images/e2e-1.gif"  height=250>
-  <img src="assets/images/e2e-2.gif"  height=250>
-</p>
-
-## 🎁 Models Zoo
-
-It takes 11.5 GB VRAM for shape generation and 24.5 GB for shape and texture generation in total.
-
-| Model                   |    Description                         | Date       | Size | Huggingface                                                                              |
-|-------------------------|-----------------------------|------------|------|------------------------------------------------------------------------------------------| 
-| Hunyuan3D-DiT-v2-0-Fast | Guidance Distillation Model | 2025-02-03 | 2.6B | [Download](https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-dit-v2-0-fast) |
-| Hunyuan3D-DiT-v2-0      | Image to Shape Model        | 2025-01-21 | 2.6B | [Download](https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-dit-v2-0)      |
-| Hunyuan3D-Paint-v2-0    | Texture Generation Model    | 2025-01-21 | 1.3B | [Download](https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-paint-v2-0)    |
-| Hunyuan3D-Delight-v2-0  | Image Delight Model         | 2025-01-21 | 1.3B | [Download](https://huggingface.co/tencent/Hunyuan3D-2/tree/main/hunyuan3d-delight-v2-0)  | 
-
-## 🤗 Get Started with Hunyuan3D 2.0
-
-You may follow the next steps to use Hunyuan3D 2.0 via:
-
-- [Code](#code-usage)
-- [Gradio App](#gradio-app)
-- [API Server](#api-server)
-- [Blender Addon](#blender-addon)
-- [Official Site](#official-site)
-
-### Install Requirements
-
-Please install Pytorch via the [official](https://pytorch.org/) site. Then install the other requirements via
-
-```bash
-pip install -r requirements.txt
-# for texture
-cd hy3dgen/texgen/custom_rasterizer
-python3 setup.py install
-cd ../../..
-cd hy3dgen/texgen/differentiable_renderer
-python3 setup.py install
 ```
 
-### Code Usage
 
-We designed a diffusers-like API to use our shape generation model - Hunyuan3D-DiT and texture synthesis model -
-Hunyuan3D-Paint.
 
-You could assess **Hunyuan3D-DiT** via:
-
-```python
-from hy3dgen.shapegen import Hunyuan3DDiTFlowMatchingPipeline
-
-pipeline = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained('tencent/Hunyuan3D-2')
-mesh = pipeline(image='assets/demo.png')[0]
 ```
 
-The output mesh is a [trimesh object](https://trimesh.org/trimesh.html), which you could save to glb/obj (or other
-format) file.
 
-For **Hunyuan3D-Paint**, do the following:
 
-```python
-from hy3dgen.texgen import Hunyuan3DPaintPipeline
-from hy3dgen.shapegen import Hunyuan3DDiTFlowMatchingPipeline
-
-# let's generate a mesh first
-pipeline = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained('tencent/Hunyuan3D-2')
-mesh = pipeline(image='assets/demo.png')[0]
-
-pipeline = Hunyuan3DPaintPipeline.from_pretrained('tencent/Hunyuan3D-2')
-mesh = pipeline(mesh, image='assets/demo.png')
-```
-
-Please visit [minimal_demo.py](minimal_demo.py) for more advanced usage, such as **text to 3D** and **texture generation
-for handcrafted mesh**.
-
-### Gradio App
-
-You could also host a [Gradio](https://www.gradio.app/) App in your own computer via:
-
-```bash
-python3 gradio_app.py
-```
-
-### API Server
-
-You could launch an API server locally, which you could post web request for Image/Text to 3D, Texturing existing mesh,
-and e.t.c.
-
-```bash
-python api_server.py --host 0.0.0.0 --port 8080
-```
-
-A demo post request for image to 3D without texture.
-
-```bash
-img_b64_str=$(base64 -i assets/demo.png)
-curl -X POST "http://localhost:8080/generate" \
-     -H "Content-Type: application/json" \
-     -d '{
-           "image": "'"$img_b64_str"'",
-         }' \
-     -o test2.glb
-```
-
-### Blender Addon
-
-With an API server launched, you could also directly use Hunyuan3D 2.0 in your blender with
-our [Blender Addon](blender_addon.py). Please follow our tutorial to install and use.
-
-https://github.com/user-attachments/assets/8230bfb5-32b1-4e48-91f4-a977c54a4f3e
 
 ### Official Site
 

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Power Consumption Dashboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:400,700" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f0f8ff, #dbe9ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
+      width: 95%;
+    }
+    h1 {
+      color: #007bff;
+      text-align: center;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    nav a:hover {
+      color: #0056b3;
+    }
+    section {
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    canvas {
+      max-width: 100%;
+      margin: 20px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    input, textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Power Consumption Dashboard</h1>
+    <nav>
+      <a onclick="showSection('home')">🏠 Home</a>
+      <a onclick="showSection('charts')">📊 Charts</a>
+      <a onclick="showSection('data')">📁 Data</a>
+      <a onclick="showSection('contact')">📞 Contact</a>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="active">
+      <p>Welcome! Use the navigation above to explore electricity usage data, charts, and contact us.</p>
+    </section>
+
+    <!-- Charts Section -->
+    <section id="charts">
+      <canvas id="lineChart"></canvas>
+      <canvas id="barChart"></canvas>
+      <div id="stats"></div>
+    </section>
+
+    <!-- Data Section -->
+    <section id="data">
+      <table>
+        <thead>
+          <tr><th>Month</th><th>Consumption (kWh)</th></tr>
+        </thead>
+        <tbody id="dataTable">
+          <!-- Filled by JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll("section");
+    function showSection(id) {
+      sections.forEach(sec => sec.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    // Sample data
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const consumption = [320, 280, 300, 350, 400, 420, 390, 410, 370, 360, 340, 330];
+
+    // Fill data table
+    const dataTable = document.getElementById("dataTable");
+    months.forEach((month, i) => {
+      const row = `<tr><td>${month}</td><td>${consumption[i]}</td></tr>`;
+      dataTable.innerHTML += row;
+    });
+
+    // Chart.js setup
+    const lineCtx = document.getElementById("lineChart").getContext("2d");
+    const barCtx = document.getElementById("barChart").getContext("2d");
+
+    new Chart(lineCtx, {
+      type: "line",
+      data: {
+        labels: months,
+        datasets: [{
+          label: "Electricity Usage (kWh)",
+          data: consumption,
+          borderColor: "#007bff",
+          backgroundColor: "rgba(0,123,255,0.1)",
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+
+    new Chart(barCtx, {
+      type: "bar",
+      data: {
+        labels: months,
+        datasets: [{
+          label: "Electricity Usage (kWh)",
+          data: consumption,
+          backgroundColor: "#007bff"
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+
+    // Stats
+    const total = consumption.reduce((a, b) => a + b, 0);
+    const avg = (total / consumption.length).toFixed(2);
+    const max = Math.max(...consumption);
+    const min = Math.min(...consumption);
+    document.getElementById("stats").innerHTML = `
+      <p><strong>Total:</strong> ${total} kWh</p>
+      <p><strong>Average:</strong> ${avg} kWh</p>
+      <p><strong>Max:</strong> ${max} kWh</p>
+      <p><strong>Min:</strong> ${min} kWh</p>
+    `;
+  </script>
+</body>
+</html>

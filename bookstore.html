@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>📚 My Visual Moviestore</title>
+  <title>📚 My Visual Dramastore</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -95,16 +95,16 @@
 </head>
 <body>
 
-  <h1>📚 My Visual Moviestore</h1>
+  <h1>📚 My Visual Dramastore</h1>
 
-  <input type="text" id="search" placeholder="Search by title or Director" onkeyup="searchBooks()" />
+  <input type="text" id="search" placeholder="Search by title or Actor" onkeyup="searchBooks()" />
 
   <div id="bookList"></div>
 
   <div id="add-section">
-    <h2>Add a New Movie</h2>
-    <input type="text" id="title" placeholder="Movie Title">
-    <input type="text" id="Director" placeholder="Director">
+    <h2>Add a New Drama</h2>
+    <input type="text" id="title" placeholder="Drama Title">
+    <input type="text" id="Actor" placeholder="Actor">
     <select id="category">
       <option value="Fiction">Fiction</option>
       <option value="Non-Fiction">Non-Fiction</option>
@@ -114,10 +114,9 @@
       <option value="Entertainment">Entertainment</option>
       <option value="Thriller">Thriller</option>
       <option value="Horror">Horror</option>
-
     </select>
-    <input type="text" id="imageURL" placeholder="Movie Cover Image URL">
-    <button onclick="addMovie()">➕ Add Movie</button>
+    <input type="text" id="imageURL" placeholder="Drama Cover Image URL">
+    <button onclick="addBook()">➕ Add Drama</button>
   </div>
 
   <script>
@@ -136,7 +135,7 @@
                title="Click to view" />
           <div class="book-details">
             <strong>${book.title}</strong>
-            <em>${book.author} [${book.category}]</em>
+            <em>${book.Actor} [${book.category}]</em>
             <div class="views">👁 Views: ${book.views || 0}</div>
             <button class="delete-btn" onclick="deleteBook(${index})">🗑 Delete</button>
           </div>
@@ -147,19 +146,19 @@
 
     function addBook() {
       const title = document.getElementById("title").value.trim();
-      const Director = document.getElementById("Director").value.trim();
+      const Actor = document.getElementById("Actor").value.trim();
       const category = document.getElementById("category").value;
       const imageURL = document.getElementById("imageURL").value.trim();
 
-      if (title && Director) {
-        const newBook = { title, Director, category, imageURL, views: 0 };
+      if (title && Actor) {
+        const newBook = { title, Actor, category, imageURL, views: 0 };
         books.push(newBook);
         localStorage.setItem("bookstore", JSON.stringify(books));
         renderBooks();
 
-        ["title", "Director", "imageURL"].forEach(id => document.getElementById(id).value = "");
+        ["title", "Actor", "imageURL"].forEach(id => document.getElementById(id).value = "");
       } else {
-        alert("Title and Director are required!");
+        alert("Title and Actor are required!");
       }
     }
 
@@ -181,7 +180,7 @@
       const query = document.getElementById("search").value.toLowerCase();
       const filtered = books.filter(book =>
         book.title.toLowerCase().includes(query) ||
-        book.author.toLowerCase().includes(query)
+        book.Actor.toLowerCase().includes(query)
       );
       renderBooks(filtered);
     }

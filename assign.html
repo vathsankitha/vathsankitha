@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Assignment Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #f4f4f9;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .feedback {
+      margin-top: 2rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .feedback h3 {
+      margin-top: 0;
+    }
+    .highlight {
+      color: #d9534f;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Instant Assignment Feedback</h1>
+  <textarea id="inputText" placeholder="Paste or write your assignment here..."></textarea>
+  <button onclick="analyzeText()">Get Feedback</button>
+
+  <div class="feedback" id="feedbackBox" style="display:none;">
+    <h3>Feedback Summary</h3>
+    <p><strong>Word Count:</strong> <span id="wordCount"></span></p>
+    <p><strong>Long Sentences:</strong> <span id="longSentences"></span></p>
+    <p><strong>Passive Voice Usage:</strong> <span id="passiveVoice"></span></p>
+    <p><strong>Filler Words Detected:</strong> <span id="fillerWords"></span></p>
+  </div>
+
+  <script>
+    function analyzeText() {
+      const text = document.getElementById("inputText").value;
+      const words = text.trim().split(/\s+/);
+      const sentences = text.match(/[^.!?]+[.!?]/g) || [];
+      const fillerWords = ["just", "really", "very", "actually", "basically", "literally"];
+      const passiveIndicators = ["was", "were", "is", "are", "been", "be", "being", "by"];
+
+      // Word count
+      document.getElementById("wordCount").textContent = words.length;
+
+      // Long sentences
+      const longSentences = sentences.filter(s => s.split(" ").length > 20);
+      document.getElementById("longSentences").textContent = longSentences.length;
+
+      // Passive voice detection (basic)
+      const passiveCount = text.split(/\s+/).filter(word => passiveIndicators.includes(word.toLowerCase())).length;
+      document.getElementById("passiveVoice").textContent = passiveCount;
+
+      // Filler words detection
+      const fillerFound = words.filter(word => fillerWords.includes(word.toLowerCase()));
+      document.getElementById("fillerWords").textContent = fillerFound.length > 0
+        ? fillerFound.join(", ")
+        : "None 🎉";
+
+      document.getElementById("feedbackBox").style.display = "block";
+    }
+  </script>
+</body>
+</html>
